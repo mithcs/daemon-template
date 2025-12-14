@@ -62,3 +62,17 @@
 ; Example:
 ;   close(0)
 %define syscall_close 3
+
+; Suspends the execution of calling thread for specified time.
+; 
+; Arguments:
+;   rdi = duration (timespec struct)
+;   rsi = remaining time (timespec struct) - see [1]
+; Returns:
+;   On success: 0
+;   On failure: <0
+; Example:
+;   close(0)
+;
+; [1]: if sleep is interrupted then remaining time is stored in rem (rsi)
+%define syscall_nanosleep 35

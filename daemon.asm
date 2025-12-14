@@ -9,6 +9,7 @@ CPU X64
 %define stderr 2
 
 %define mask_value 0
+%define seconds_to_sleep 30
 
 section .rodata
 root_dir db "/", 0
@@ -25,7 +26,7 @@ _start:
         call close_fd
 
         .loop:
-                ; TODO: jmp sleep
+                call sleep
 
                 ; 
                 ; main daemon logic goes here
@@ -94,4 +95,20 @@ exit:
 die:
         exit_program 1
 
-; TODO: add sleep
+sleep:
+        push rbp
+        mov rbp, rsp
+        sub rsp, 16
+
+        mov QWORD [rsp], seconds_to_sleep
+        mov QWORD [rsp + 8], 0
+
+        mov rax, syscall_nanosleep
+        lea rdi, [rsp]
+        mov rsi, 0
+        syscall
+
+        add rsp, 16
+        pop rbp
+        ret
+

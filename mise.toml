@@ -1,0 +1,19 @@
+[tasks.assemble-d]
+run = "nasm -f elf64 -g daemon.asm -o daemon.o"
+hide = true
+
+[tasks.link-d]
+run = "ld.lld daemon.o -o daemon --fatal-warnings --gc-sections --no-undefined --static -z now"
+hide = true
+
+[tasks.debug]
+depends = ["assemble-d", "link-d"]
+
+[tasks.assemble]
+run = "nasm -f elf64 daemon.asm -o daemon.o"
+
+[tasks.link]
+run = "ld.lld daemon.o -o daemon --fatal-warnings --gc-sections --no-undefined --static --strip-all -z now"
+
+[tasks.build]
+depends = ["assemble", "link"]

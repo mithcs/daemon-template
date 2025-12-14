@@ -4,7 +4,7 @@
 ;   rdi = path to become the current working directory
 ; Returns:
 ;   On success: 0
-;   On failure: -1
+;   On failure: <0
 ; Example:
 ;   chdir("/")
 %define syscall_chdir 80
@@ -28,7 +28,7 @@
 ;   On success:
 ;     To child: 0
 ;     To parent: pid of child process
-;   On failure: -1
+;   On failure: <0
 ; Example:
 ;   fork()
 %define syscall_fork 57
@@ -39,7 +39,7 @@
 ;   None
 ; Returns:
 ;   On success: (new) session ID of the calling process
-;   On failure: -1
+;   On failure: <0
 %define syscall_setsid 112
 
 ; Sets the calling process's file mode creation mask to `mask(rdi) & 0777`.
@@ -58,7 +58,7 @@
 ;   rdi = file descriptor to close
 ; Returns:
 ;   On success: 0
-;   On failure: -1
+;   On failure: <0
 ; Example:
 ;   close(0)
 %define syscall_close 3

@@ -11,6 +11,6 @@
         mov rdi, %1
         syscall
         
-        cmp rax, -1
-        jz die
+        test rax, rax
+        js die
 %endmacro
